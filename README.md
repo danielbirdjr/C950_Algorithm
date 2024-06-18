@@ -1,1 +1,1 @@
-# C950_Traveling_Salesman_Algorithm
+# C950_Algorithm
