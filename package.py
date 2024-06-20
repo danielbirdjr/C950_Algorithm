@@ -43,8 +43,8 @@ class HashTable:
         index = self.hash(package_id)
         self.table[index].append(package)
 
-    # Function to find a package based off the package ID
-    def find(self, package_id):
+    # Function to lookup a package based off the package ID
+    def lookup(self, package_id):
         index = self.hash(package_id)
         for package in self.table[index]:
             if package.package_id == package_id:
@@ -79,7 +79,7 @@ def load_packages(filename, hash_table):
 # load_packages("package_file.csv", hash_table)
 
 # # Example to print a package's information to verify loading is correct
-# package = hash_table.find(39)
+# package = hash_table.lookup(39)
 # if package:
 #     print(package)
 # else:
