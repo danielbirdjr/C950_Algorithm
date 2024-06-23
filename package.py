@@ -15,12 +15,18 @@ class Package:
         self.status = status 
         self.loading_time = datetime.datetime.strptime("00:00", '%H:%M')
         self.delivery_time = datetime.datetime.strptime("00:00", '%H:%M')
-
+        # Put in None instead of values in loading_time and delivery_time
 
     # String representation of the package for printing
     def __str__(self):
         return (f"Package ID: {self.package_id}, Address: {self.address}, City: {self.city}, "
                 f"Zip code: {self.zip_code}, Weight: {self.weight}, Status: {self.status}")
+    
+    # String representation of the package for printing
+    def __repr__(self):
+        return (f"Package ID: {self.package_id}, Address: {self.address}, City: {self.city}, "
+                f"Zip code: {self.zip_code}, Weight: {self.weight}, Status: {self.status}")
+    
 
 # Class for the hash table to store package objects
 class HashTable:
@@ -31,7 +37,6 @@ class HashTable:
         self.table = [None] * self.size
         for i in range(self.size):
             self.table[i] = [] 
-    # CI said to change length to 10 and mod 10
 
     # Hash function to determine the index for a given key
     def hash(self, key):
@@ -74,15 +79,15 @@ def load_packages(filename, hash_table):
             weight = int(weight)
             hash_table.insert(package_id, address, city, deadline, zip_code, weight, status)
 
-# # Main execution block to load packages and demonstrate functionality
-# hash_table = HashTable()
-# load_packages("package_file.csv", hash_table)
+# Main execution block to load packages and demonstrate functionality
+hash_table = HashTable()
+load_packages("package_file.csv", hash_table)
 
-# # Example to print a package's information to verify loading is correct
-# package = hash_table.lookup(39)
-# if package:
-#     print(package)
-# else:
-#     print("Package not found")
+# Example to print a package's information to verify loading is correct
+package = hash_table.lookup(17) # change based on package_id
+if package:
+    print(package)
+else:
+    print("Package not found")
 
             
