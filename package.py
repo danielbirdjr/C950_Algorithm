@@ -1,4 +1,3 @@
-import datetime
 import csv
 
 # Class that holds the package objects
@@ -13,9 +12,8 @@ class Package:
         self.zip_code = zip_code
         self.weight = weight 
         self.status = status 
-        self.loading_time = datetime.datetime.strptime("00:00", '%H:%M')
-        self.delivery_time = datetime.datetime.strptime("00:00", '%H:%M')
-        # Put in None instead of values in loading_time and delivery_time
+        self.loading_time = None
+        self.delivery_time = None
 
     # String representation of the package for printing
     def __str__(self):
@@ -83,11 +81,11 @@ def load_packages(filename, hash_table):
 hash_table = HashTable()
 load_packages("package_file.csv", hash_table)
 
-# Example to print a package's information to verify loading is correct
-package = hash_table.lookup(17) # change based on package_id
-if package:
-    print(package)
-else:
-    print("Package not found")
+# # Example to print a package's information to verify loading is correct
+# package = hash_table.lookup(17) # change based on package_id
+# if package:
+#     print(package)
+# else:
+#     print("Package not found")
 
             

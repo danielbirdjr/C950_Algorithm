@@ -4,28 +4,13 @@ import csv
 distance_data = []
 address_dictionary = {}
 
-with open('distance_file3.csv', newline='') as csvfile:
+with open('distance_file.csv', newline='') as csvfile:
     reader = csv.reader(csvfile)
 
     # Iterate through rows of csv file
     for row in reader:
-        # Pop the address from the row
-        # address = row.pop(0)
 
-        # # Insert the address into the dictionary
-        # address_dictionary[address] = i
-
-        # # Initialize a list to hold the converted distances
-        # distances = []
-
-        # # Iterate through remaining elements in row
-        # for distance in row:
-        #     if distance:
-        #         distances.append(float(distance))
-        #     else: 
-        #         distances.append(0.0)
-
-        # Append the list of converted distances to the distance_data list
+        # Append the row data to the distance_data list
         distance_data.append(row)
 
 # Function to get the distance between two locations
@@ -44,20 +29,11 @@ def get_index(address):
             return i
         
     return -1
-    
-
-print("Address Dictionary:")
-for address, i in address_dictionary.items():
-    print(f"{i}: {address}")
-
-print("\nDistance Data:")
-for row in distance_data:
-    print(row)
 
 
-# Example usage of get_distance function
-address1 = "1060 Dalton Ave S"
-address2 = "1330 2100 S"
-distance = get_distance(address1, address2)
-print(f"\nDistance between {address1} and {address2}: {distance} miles")
+# # Example usage of get_distance function
+# address1 = "233 Canyon Rd"
+# address2 = "1330 2100 S"
+# distance = get_distance(address1, address2)
+# print(f"\nDistance between {address1} and {address2}: {distance} miles\n")
 
