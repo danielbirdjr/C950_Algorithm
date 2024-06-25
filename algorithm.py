@@ -23,6 +23,8 @@ def timestamp_packages(truck, start_time):
         if package:
             package.loading_time = start_time
             package.status = "Loaded on Truck"
+            # print(f"Debug: Package {package_id} loading time set to {package.loading_time}")  # Debug print
+
 
 # Apply timestamp to each truck
 timestamp_packages(truck1, start_time_truck1)
@@ -30,33 +32,33 @@ timestamp_packages(truck2, start_time_truck2)
 timestamp_packages(truck3, start_time_truck3)
 
 # Print the results to verify
-def print_loaded_packages(truck, truck_number):
-    print(f"\nTruck {truck_number} Loaded Packages:")
-    for package_id in truck:
-        package = hash_table.lookup(package_id)
-        if package:
-            print(f"Package ID: {package.package_id}, Address: {package.address}, "
-                  f"City: {package.city}, Zip code: {package.zip_code}, "
-                  f"Weight: {package.weight}, Status: {package.status}, "
-                  f"Loading Time: {package.loading_time.strftime('%Y-%m-%d %H:%M:%S')}")
+# def print_loaded_packages(truck, truck_number):
+#     print(f"\nTruck {truck_number} Loaded Packages:")
+#     for package_id in truck:
+#         package = hash_table.lookup(package_id)
+#         if package:
+#             print(f"Package ID: {package.package_id}, Address: {package.address}, "
+#                   f"City: {package.city}, Zip code: {package.zip_code}, "
+#                   f"Weight: {package.weight}, Status: {package.status}, "
+#                   f"Loading Time: {package.loading_time.strftime('%Y-%m-%d %H:%M:%S')}")
 
 # Print the results to verify
-def print_loaded_packages(truck, truck_number):
-    print(f"\nTruck {truck_number} Loaded Packages:")
-    for package_id in truck:
-        package = hash_table.lookup(package_id)
-        if package:
-            print(f"Package ID: {package.package_id}, Address: {package.address}, "
-                  f"City: {package.city}, Zip code: {package.zip_code}, "
-                  f"Weight: {package.weight}, Status: {package.status}, "
-                  f"Loading Time: {package.loading_time.strftime('%Y-%m-%d %H:%M:%S')}")
+# def print_loaded_packages(truck, truck_number):
+#     print(f"\nTruck {truck_number} Loaded Packages:")
+#     for package_id in truck:
+#         package = hash_table.lookup(package_id)
+#         if package:
+#             print(f"Package ID: {package.package_id}, Address: {package.address}, "
+#                   f"City: {package.city}, Zip code: {package.zip_code}, "
+#                   f"Weight: {package.weight}, Status: {package.status}, "
+#                   f"Loading Time: {package.loading_time.strftime('%Y-%m-%d %H:%M:%S')}")
             
 # Set the current truck location to the index location of the hub
 hub_address = "HUB"
 current_truck_location = get_index(hub_address)
 
 # Print the current truck location to verify
-print(f"Current truck location (index): {current_truck_location}")
+# print(f"Current truck location (index): {current_truck_location}")
 
 # Function to deliver packages using the nearest neighbor algorithm
 def deliver_packages(truck, start_time):
@@ -101,6 +103,7 @@ def deliver_packages(truck, start_time):
             truck.remove(min_package.package_id)
             current_location = min_package.address
             total_distance += min_distance  # Update the total distance
+            # print(f"Debug: Package {min_package.package_id} delivered at {min_package.delivery_time}")  # Debug print
 
     # Calculate distance from the last delivery location back to the hub
     if delivered_packages:
@@ -116,22 +119,22 @@ delivered_packages_truck3, total_distance_truck3 = deliver_packages(truck3, star
 
 
 # Print the delivery results for each truck
-def print_deliveries(truck_deliveries, truck_number, total_distance):
-    print(f"\nTruck {truck_number} Deliveries:")
-    for package in truck_deliveries:
-        print(f"Package ID: {package.package_id}, Address: {package.address}, "
-              f"City: {package.city}, Zip code: {package.zip_code}, "
-              f"Weight: {package.weight}, Status: {package.status}, "
-              f"Delivery Time: {package.delivery_time.strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"\nTotal distance traveled by Truck {truck_number}: {total_distance:.2f} miles")
+# def print_deliveries(truck_deliveries, truck_number, total_distance):
+#     print(f"\nTruck {truck_number} Deliveries:")
+#     for package in truck_deliveries:
+#         print(f"Package ID: {package.package_id}, Address: {package.address}, "
+#               f"City: {package.city}, Zip code: {package.zip_code}, "
+#               f"Weight: {package.weight}, Status: {package.status}, "
+#               f"Delivery Time: {package.delivery_time.strftime('%Y-%m-%d %H:%M:%S')}")
+#     print(f"\nTotal distance traveled by Truck {truck_number}: {total_distance:.2f} miles")
 
-print_deliveries(delivered_packages_truck1, 1, total_distance_truck1)
-print_deliveries(delivered_packages_truck2, 2, total_distance_truck2)
-print_deliveries(delivered_packages_truck3, 3, total_distance_truck3)
+# print_deliveries(delivered_packages_truck1, 1, total_distance_truck1)
+# print_deliveries(delivered_packages_truck2, 2, total_distance_truck2)
+# print_deliveries(delivered_packages_truck3, 3, total_distance_truck3)
 
 # Calculate the total distance traveled by all trucks
 total_combined_distance = total_distance_truck1 + total_distance_truck2 + total_distance_truck3
-print(f"\nTotal combined distance traveled by all trucks: {total_combined_distance:.2f} miles\n")
+# print(f"\nTotal combined distance traveled by all trucks: {total_combined_distance:.2f} miles\n")
 
 # Verify that all packages are delivered
 def verify_deliveries(truck_deliveries, truck_number):
@@ -141,6 +144,11 @@ def verify_deliveries(truck_deliveries, truck_number):
         else:
             print(f"Truck {truck_number} successfully delivered package {package.package_id} at {package.delivery_time}")
 
-verify_deliveries(delivered_packages_truck1, 1)
-verify_deliveries(delivered_packages_truck2, 2)
-verify_deliveries(delivered_packages_truck3, 3)
+
+# verify_deliveries(delivered_packages_truck1, 1)
+# verify_deliveries(delivered_packages_truck2, 2)
+# verify_deliveries(delivered_packages_truck3, 3)
+
+# Export the hash table and total combined distance
+exported_hash_table = hash_table
+exported_total_combined_distance = total_combined_distance

@@ -1,0 +1,107 @@
+from datetime import datetime
+from package import Package, load_packages
+from algorithm import delivered_packages_truck1, delivered_packages_truck2, delivered_packages_truck3, total_combined_distance, exported_hash_table
+
+# Use the exported hash table from algorithm.py
+hash_table = exported_hash_table
+
+# Combine delivered packages from all trucks for easy lookup
+all_delivered_packages = delivered_packages_truck1 + delivered_packages_truck2 + delivered_packages_truck3
+
+def get_package_status(package, query_time):
+    if package.loading_time is None:
+        # print(f"Debug: Package {package.package_id} loading time is None")
+        return "Unknown"
+    if package.delivery_time is None:
+        # print(f"Debug: Package {package.package_id} delivery time is None")
+        return "Unknown"
+    
+    # print(f"Debug: Package {package.package_id} loading time: {package.loading_time}")
+    # print(f"Debug: Package {package.package_id} delivery time: {package.delivery_time}")
+    
+    if query_time < package.loading_time:
+        return "At hub"
+    elif query_time > package.delivery_time:
+        return "Delivered"
+    else:
+        return "En Route"
+
+def display_all_packages(query_time):
+    for package in all_delivered_packages:
+        status = get_package_status(package, query_time)
+        print(f"Package ID: {package.package_id}, Address: {package.address}, City: {package.city}, "
+              f"Zip code: {package.zip_code}, Weight: {package.weight}, Status: {status}, "
+              f"Loading Time: {package.loading_time.strftime('%Y-%m-%d %H:%M:%S') if package.loading_time else 'N/A'}, "
+              f"Delivery Time: {package.delivery_time.strftime('%Y-%m-%d %H:%M:%S') if package.delivery_time else 'N/A'}")
+
+def display_one_package(query_time, package_id):
+    package = hash_table.lookup(package_id)
+    if package:
+        status = get_package_status(package, query_time)
+        print(f"Package ID: {package.package_id}, Address: {package.address}, City: {package.city}, "
+              f"Zip code: {package.zip_code}, Weight: {package.weight}, Status: {status}, "
+              f"Loading Time: {package.loading_time.strftime('%Y-%m-%d %H:%M:%S') if package.loading_time else 'N/A'}, "
+              f"Delivery Time: {package.delivery_time.strftime('%Y-%m-%d %H:%M:%S') if package.delivery_time else 'N/A'}")
+    else:
+        print(f"Package with ID {package_id} not found.")
+
+def display_total_distance():
+    print(f"Total combined distance traveled by all trucks: {total_combined_distance:.2f} miles")
+
+def valid_time_format(time_str):
+    try:
+        # Try different formats to accept various inputs
+        datetime.strptime(f"2024-01-01 {time_str}", '%Y-%m-%d %I:%M%p')
+        return True
+    except ValueError:
+        try:
+            datetime.strptime(f"2024-01-01 {time_str}", '%Y-%m-%d %I:%M %p')
+            return True
+        except ValueError:
+            return False
+
+def get_valid_time():
+    while True:
+        time_str = input("\nEnter the time (HH:MM AM/PM): ")
+        if valid_time_format(time_str):
+            return datetime.strptime(f"2024-01-01 {time_str.strip()}", '%Y-%m-%d %I:%M%p' if len(time_str) <= 6 else '%Y-%m-%d %I:%M %p')
+        else:
+            print("Invalid time format. Please enter the time in HH:MM AM/PM format.")
+
+def get_valid_package_id():
+    while True:
+        try:
+            package_id = int(input("Enter the package ID: "))
+            return package_id
+        except ValueError:
+            print("Invalid package ID. Please enter a valid numeric package ID.")
+
+def user_menu():
+    while True:
+        print("\nPackage Tracking System")
+        print("1. Display all packages at a certain time")
+        print("2. Display one package at a certain time")
+        print("3. Display total combined distance traveled by all trucks")
+        print("4. Exit\n")
+
+        choice = input("Enter your choice: ")
+
+        if choice == '1':
+            query_time = get_valid_time()
+            display_all_packages(query_time)
+        elif choice == '2':
+            query_time = get_valid_time()
+            package_id = get_valid_package_id()
+            display_one_package(query_time, package_id)
+        elif choice == '3':
+            print()
+            display_total_distance()
+        elif choice == '4':
+            print("Exiting the program.")
+            break
+        else:
+            print("Invalid choice. Please enter 1, 2, or 3.")
+
+# Run the user menu
+if __name__ == "__main__":
+    user_menu()
