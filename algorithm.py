@@ -16,20 +16,26 @@ start_time_truck1 = datetime(year=2024, month=1, day=1, hour=8, minute=0)
 start_time_truck2 = datetime(year=2024, month=1, day=1, hour=9, minute=5)
 start_time_truck3 = datetime(year=2024, month=1, day=1, hour=10, minute=20)
 
+# Define truck numbers
+truck_number_1 = 1
+truck_number_2 = 2
+truck_number_3 = 3
+
 # Timestamp each package in each list with the corresponding loading time
-def timestamp_packages(truck, start_time):
+def timestamp_packages(truck, start_time, truck_number):
     for package_id in truck:
         package = hash_table.lookup(package_id)
         if package:
             package.loading_time = start_time
             package.status = "Loaded on Truck"
             # print(f"Debug: Package {package_id} loading time set to {package.loading_time}")  # Debug print
+            package.truck_number = truck_number # add truck number to package
 
 
 # Apply timestamp to each truck
-timestamp_packages(truck1, start_time_truck1)
-timestamp_packages(truck2, start_time_truck2)
-timestamp_packages(truck3, start_time_truck3)
+timestamp_packages(truck1, start_time_truck1, truck_number_1)
+timestamp_packages(truck2, start_time_truck2, truck_number_2)
+timestamp_packages(truck3, start_time_truck3, truck_number_3)
 
 # Print the results to verify
 # def print_loaded_packages(truck, truck_number):

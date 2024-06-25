@@ -14,6 +14,7 @@ class Package:
         self.status = status 
         self.loading_time = None
         self.delivery_time = None
+        self.truck_number = None
 
     # String representation of the package for printing
     def __str__(self):
