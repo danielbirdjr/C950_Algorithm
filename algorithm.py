@@ -31,7 +31,6 @@ def timestamp_packages(truck, start_time, truck_number):
         if package:
             package.loading_time = start_time
             package.status = "Loaded on Truck"
-            # print(f"Debug: Package {package_id} loading time set to {package.loading_time}")  # Debug print
             package.truck_number = truck_number # add truck number to package
 
 # Apply timestamp to each truck
