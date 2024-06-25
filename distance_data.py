@@ -14,6 +14,7 @@ with open('distance_file.csv', newline='') as csvfile:
         distance_data.append(row)
 
 # Function to get the distance between two locations
+# Time Complexity: O(n)
 def get_distance(address1, address2):
     index1 = get_index(address1)
     index2 = get_index(address2)
@@ -23,17 +24,11 @@ def get_distance(address1, address2):
     else:
         return float(distance_data[index2][index1 + 1])
     
+# Time Complexity: O(n)
 def get_index(address):
     for i, row in enumerate(distance_data):
         if row[0] == address:
             return i
         
     return -1
-
-
-# # Example usage of get_distance function
-# address1 = "233 Canyon Rd"
-# address2 = "1330 2100 S"
-# distance = get_distance(address1, address2)
-# print(f"\nDistance between {address1} and {address2}: {distance} miles\n")
 

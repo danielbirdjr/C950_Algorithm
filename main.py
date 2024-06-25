@@ -10,6 +10,7 @@ hash_table = exported_hash_table
 # Combine delivered packages from all trucks for easy lookup
 all_delivered_packages = delivered_packages_truck1 + delivered_packages_truck2 + delivered_packages_truck3
 
+# Time Complexity: O(1)
 def get_package_status(package, query_time):
     if package.package_id == 9:
         if query_time < datetime(year=2024, month=1, day=1, hour=10, minute=20):
@@ -22,14 +23,9 @@ def get_package_status(package, query_time):
             package.zip_code = "84111"
 
     if package.loading_time is None:
-        # print(f"Debug: Package {package.package_id} loading time is None")
         return "Unknown"
     if package.delivery_time is None:
-        # print(f"Debug: Package {package.package_id} delivery time is None")
         return "Unknown"
-    
-    # print(f"Debug: Package {package.package_id} loading time: {package.loading_time}")
-    # print(f"Debug: Package {package.package_id} delivery time: {package.delivery_time}")
     
     if query_time < package.loading_time:
         return "At hub"
@@ -38,6 +34,7 @@ def get_package_status(package, query_time):
     else:
         return "En Route"
 
+# Time Complexity: O(n)
 def display_all_packages(query_time):
     for package in all_delivered_packages:
         status = get_package_status(package, query_time)
@@ -48,6 +45,7 @@ def display_all_packages(query_time):
               f"Loading Time: {package.loading_time.strftime('%Y-%m-%d %H:%M:%S') if package.loading_time else 'N/A'}, "
               f"Delivery Time: {package.delivery_time.strftime('%Y-%m-%d %H:%M:%S') if package.delivery_time else 'N/A'}")
 
+# Time Complexity: O(1)
 def display_one_package(query_time, package_id):
     package = hash_table.lookup(package_id)
     if package:
@@ -61,12 +59,13 @@ def display_one_package(query_time, package_id):
     else:
         print(f"Package with ID {package_id} not found.")
 
+# Time Complexity: O(1)
 def display_total_distance():
     print(f"Total combined distance traveled by all trucks: {total_combined_distance:.2f} miles")
 
+# Time Complexity: O(1)
 def valid_time_format(time_str):
     try:
-        # Try different formats to accept various inputs
         datetime.strptime(f"2024-01-01 {time_str}", '%Y-%m-%d %I:%M%p')
         return True
     except ValueError:
@@ -76,6 +75,7 @@ def valid_time_format(time_str):
         except ValueError:
             return False
 
+# Time Complexity: O(1)
 def get_valid_time():
     while True:
         time_str = input("\nEnter the time (HH:MM AM/PM): ")
@@ -84,6 +84,7 @@ def get_valid_time():
         else:
             print("Invalid time format. Please enter the time in HH:MM AM/PM format.")
 
+# Time Complexity: O(1)
 def get_valid_package_id():
     while True:
         try:
@@ -92,6 +93,7 @@ def get_valid_package_id():
         except ValueError:
             print("Invalid package ID. Please enter a valid numeric package ID.")
 
+# Time Complexity: O(n)
 def user_menu():
     while True:
         print("\nPackage Tracking System")
@@ -122,8 +124,3 @@ def user_menu():
 if __name__ == "__main__":
     user_menu()
 
-
-# add truck number
-    
-# before 10:20 wrong address
-# after, correct address for package 9
